@@ -1,0 +1,74 @@
+name: Publish Homebrew formula
+
+on:
+  release:
+    types: [published]
+
+permissions:
+  contents: write
+
+concurrency:
+  group: publish-homebrew-formula
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    if: ${{ !github.event.release.prerelease }}
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: ${{ github.event.repository.default_branch }}
+
+      - name: Download formula from the release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RELEASE_TAG: ${{ github.event.release.tag_name }}
+        run: |
+          mkdir -p "$RUNNER_TEMP/inq-formula" Formula
+          gh release download "$RELEASE_TAG" \
+            --repo "$GITHUB_REPOSITORY" \
+            --pattern inq.rb \
+            --dir "$RUNNER_TEMP/inq-formula"
+          cp "$RUNNER_TEMP/inq-formula/inq.rb" Formula/inq.rb
+
+      - name: Commit formula
+        env:
+          RELEASE_TAG: ${{ github.event.release.tag_name }}
+        run: |
+          git add Formula/inq.rb
+          if git diff --cached --quiet; then
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "Update inq formula for $RELEASE_TAG"
+          git push
+
+      - name: Add tap setup to the release notes
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RELEASE_TAG: ${{ github.event.release.tag_name }}
+        run: |
+          body="$(gh release view "$RELEASE_TAG" \
+            --repo "$GITHUB_REPOSITORY" \
+            --json body \
+            --jq .body)"
+          tap_command="brew tap Inq-Research/inq https://github.com/Inq-Research/inq"
+          if printf '%s\n' "$body" | grep -Fq "$tap_command"; then
+            exit 0
+          fi
+          notes="$RUNNER_TEMP/release-notes.md"
+          {
+            echo "## One-time Homebrew tap setup"
+            echo
+            echo '```sh'
+            echo "$tap_command"
+            echo "brew trust --formula Inq-Research/inq/inq"
+            echo '```'
+            echo
+            printf '%s\n' "$body"
+          } > "$notes"
+          gh release edit "$RELEASE_TAG" \
+            --repo "$GITHUB_REPOSITORY" \
+            --notes-file "$notes"

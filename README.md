@@ -8,11 +8,14 @@ This public repository hosts release downloads and installation metadata for
 ### Homebrew (macOS and Linux)
 
 ```bash
-brew install Inq-Research/tap/inq
+brew tap Inq-Research/inq https://github.com/Inq-Research/inq
+brew trust --formula Inq-Research/inq/inq
+brew install Inq-Research/inq/inq
 ```
 
-The current formula is published to
-[`Inq-Research/homebrew-tap`](https://github.com/Inq-Research/homebrew-tap).
+The explicit URL is needed once because this distribution repository is named
+`inq`, rather than using Homebrew's conventional `homebrew-` prefix. Stable
+releases update `Formula/inq.rb` in this repository automatically.
 
 ### Shell installer (macOS and Linux)
 
