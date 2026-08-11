@@ -1,21 +1,21 @@
 class Inq < Formula
   desc "Portable thinking for the machine age"
   homepage "https://github.com/Inq-Research/inq"
-  version "0.2.0"
+  version "0.3.0"
   if OS.mac?
     if Hardware::CPU.arm?
-      url "https://github.com/Inq-Research/inq/releases/download/v0.2.0/inq-aarch64-apple-darwin.tar.xz"
-      sha256 "f31c5759aae6f382f1b2d215031beb491b993c2aa52a10b70511ee12d6623788"
+      url "https://github.com/Inq-Research/inq/releases/download/v0.3.0/inq-aarch64-apple-darwin.tar.xz"
+      sha256 "ee14bcc5853e2903d599d692c1fab9aeaae4590ce8f192d10f5d109971980cfd"
     end
     if Hardware::CPU.intel?
-      url "https://github.com/Inq-Research/inq/releases/download/v0.2.0/inq-x86_64-apple-darwin.tar.xz"
-      sha256 "a476e70be8ef2c1ea245caafc416c6de68fc0d4f30a28ea1b6140ff3c3e89070"
+      url "https://github.com/Inq-Research/inq/releases/download/v0.3.0/inq-x86_64-apple-darwin.tar.xz"
+      sha256 "3a92c47dd6a041223d9914cd533777668a370817317221d634375604a31edbb1"
     end
   end
   if OS.linux?
     if Hardware::CPU.intel?
-      url "https://github.com/Inq-Research/inq/releases/download/v0.2.0/inq-x86_64-unknown-linux-gnu.tar.xz"
-      sha256 "f3130e04b6c647835c12f56c73d30abff0767f996f9745d797ddcf6cb5846cec"
+      url "https://github.com/Inq-Research/inq/releases/download/v0.3.0/inq-x86_64-unknown-linux-gnu.tar.xz"
+      sha256 "98fbfa1966a65bdfba7f7fee4f3d9a743d32389795f78535e528ea92414e91b4"
     end
   end
 
