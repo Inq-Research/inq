@@ -1,0 +1,10 @@
+[workspace]
+name = "inq"
+
+members = [
+    "guides/**"
+]
+
+[module]
+name = "overview"
+entry = "README.md"

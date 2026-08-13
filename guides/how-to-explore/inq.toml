@@ -1,0 +1,7 @@
+[module]
+name = "how-to-explore"
+entry = "entry.md"
+include = ["**/*.md"]
+
+[labels]
+purpose = ["guide"]
