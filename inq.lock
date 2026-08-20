@@ -3,3 +3,6 @@ format = 1
 
 [[module]]
 name = "overview"
+
+[[module]]
+name = "zen"
