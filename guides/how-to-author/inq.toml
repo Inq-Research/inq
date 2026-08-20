@@ -1,7 +1,0 @@
-[module]
-name = "how-to-author"
-entry = "entry.md"
-include = ["**/*.md"]
-
-[labels]
-purpose = ["guide"]
