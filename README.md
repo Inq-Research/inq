@@ -27,25 +27,64 @@ rather than making round-trip errands searching the internet.
 
 ## Install
 
+**macOS**
+
+```bash
+brew tap Inq-Research/inq https://github.com/Inq-Research/inq
+brew trust --formula Inq-Research/inq/inq
+brew install Inq-Research/inq/inq
+```
+
+The tap needs its URL spelled out because this repository is named `inq` rather
+than `homebrew-inq`. Without Homebrew, use the Linux command below; it works on
+macOS too.
+
+**Linux**
+
 ```bash
 curl -sSfL https://github.com/Inq-Research/inq/raw/main/get-inq.sh | sh
 ```
 
-One binary into `~/.local/bin`. No profile edits, no package manager, no root.
-Run it again to upgrade; delete the binary to uninstall.
+One binary into `~/.local/bin`. The script prints the line to add that
+directory to your `PATH` if it is not already there.
 
-The script is
-[`get-inq.sh`](https://github.com/Inq-Research/inq/blob/main/get-inq.sh) — read
-it before you pipe it. Every download is checked against the SHA-256 published
-beside it.
+**Windows**
+
+```powershell
+powershell -ExecutionPolicy Bypass -c "irm https://github.com/Inq-Research/inq/raw/main/get-inq.ps1 | iex"
+```
+
+One binary into `%LOCALAPPDATA%\Programs\inq`, which is added to your user
+`PATH`. Pass `-NoPathUpdate` to skip that.
+
+Both scripts check the download against the SHA-256 published beside it and
+install nothing if it does not match. Read
+[`get-inq.sh`](https://github.com/Inq-Research/inq/blob/main/get-inq.sh) and
+[`get-inq.ps1`](https://github.com/Inq-Research/inq/blob/main/get-inq.ps1)
+before you pipe them.
+
+Both accept a target directory and a release tag:
 
 ```bash
-... | sh -s - --dir /usr/local/bin    # put it elsewhere
-... | sh -s - --version v0.3.0        # pin a release
+curl -sSfL https://github.com/Inq-Research/inq/raw/main/get-inq.sh |
+  sh -s - --dir /usr/local/bin --version v0.3.0
+```
+
+```powershell
+& ([scriptblock]::Create((irm https://github.com/Inq-Research/inq/raw/main/get-inq.ps1))) -Dir C:\tools\inq -Version v0.3.0
 ```
 
 `INQ_INSTALL_DIR` and `INQ_VERSION` do the same, which suits a Dockerfile.
-`--help` covers the rest.
+Run either script with `--help` or `-?` for the rest.
+
+## Upgrade
+
+Run `inq upgrade` to see whether a newer release exists.
+
+On macOS, `brew upgrade Inq-Research/inq/inq`. On Linux and Windows, run the
+install command again; it replaces the binary in place.
+
+To uninstall, delete the binary, or run `brew uninstall Inq-Research/inq/inq`.
 
 ## Start here
 
@@ -58,25 +97,7 @@ inq howto        # the guides, bundled with the binary
 ```
 
 <details>
-<summary>Homebrew, Windows, and manual downloads</summary>
-
-### Homebrew (macOS and Linux)
-
-```bash
-brew tap Inq-Research/inq https://github.com/Inq-Research/inq
-brew trust --formula Inq-Research/inq/inq
-brew install Inq-Research/inq/inq
-```
-
-The explicit URL is needed once because this repository is named `inq` rather
-than using Homebrew's conventional `homebrew-` prefix. Stable releases update
-`Formula/inq.rb` here automatically.
-
-### Windows
-
-```powershell
-powershell -ExecutionPolicy Bypass -c "irm https://github.com/Inq-Research/inq/releases/latest/download/inq-installer.ps1 | iex"
-```
+<summary>Manual downloads and Git</summary>
 
 ### Manual
 

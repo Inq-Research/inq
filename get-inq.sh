@@ -185,31 +185,43 @@ step "downloaded $archive"
 
 # --------------------------------------------------------------------- verify
 
+# Verification is not optional. An unverified binary is not installed, so every
+# way of failing to verify has to stop the script rather than warn and continue.
+
 if command -v sha256sum >/dev/null 2>&1; then
 	sha256_of() { sha256sum "$1" | cut -d' ' -f1; }
 elif command -v shasum >/dev/null 2>&1; then
 	sha256_of() { shasum -a 256 "$1" | cut -d' ' -f1; }
+elif command -v openssl >/dev/null 2>&1; then
+	sha256_of() { openssl dgst -sha256 "$1" | tr ' ' '\n' | tail -n 1; }
 else
-	sha256_of() { return 1; }
+	die "no way to compute a SHA-256 checksum" \
+		"install one of sha256sum, shasum, or openssl and run this again" \
+		"the download is never installed unverified"
 fi
 
-if fetch "$base/$archive.sha256" "$tmp/$archive.sha256" 2>/dev/null; then
-	# The published file is `HASH *NAME`; compare hashes rather than running a
-	# checker, so the format and the working directory cannot matter.
-	expected="$(cut -d' ' -f1 <"$tmp/$archive.sha256")"
-	if actual="$(sha256_of "$tmp/$archive")"; then
-		[ "$expected" = "$actual" ] ||
-			die "the download does not match its published checksum" \
-				"expected $expected" \
-				"received $actual" \
-				"delete nothing and report this: https://github.com/$REPO/issues"
-		step "checksum verified"
-	else
-		note "no sha256sum or shasum found, so the checksum was not verified"
-	fi
-else
-	note "no published checksum for this release, so nothing was verified"
-fi
+fetch "$base/$archive.sha256" "$tmp/$archive.sha256" ||
+	die "could not download the checksum for $archive" \
+		"checked $base/$archive.sha256" \
+		"$(fetch_reason)" \
+		"the download is never installed unverified"
+
+# The published file is `HASH *NAME`; compare hashes rather than running a
+# checker, so the format and the working directory cannot matter.
+expected="$(cut -d' ' -f1 <"$tmp/$archive.sha256")"
+[ -n "$expected" ] ||
+	die "the published checksum for $archive is empty" \
+		"report this: https://github.com/$REPO/issues"
+
+actual="$(sha256_of "$tmp/$archive")" ||
+	die "could not compute the checksum of the download"
+
+[ "$expected" = "$actual" ] ||
+	die "the download does not match its published checksum" \
+		"expected $expected" \
+		"received $actual" \
+		"delete nothing and report this: https://github.com/$REPO/issues"
+step "checksum verified"
 
 # -------------------------------------------------------------------- install
 
