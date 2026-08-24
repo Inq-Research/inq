@@ -1,3 +1,8 @@
+---
+inq.module: zen
+inq.include:
+  - '**/*.md'
+---
 # Zen of Inq
 
 You are a thinker, not a janitor. Gardens are mostly dirt. Truth is found not in

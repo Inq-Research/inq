@@ -1,4 +1,0 @@
-[module]
-name = "zen"
-entry = "entry.md"
-include = ["**/*.md"]

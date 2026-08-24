@@ -1,7 +1,3 @@
 [workspace]
 name = "inq"
 members = ["zen"]
-
-[module]
-name = "overview"
-entry = "README.md"
