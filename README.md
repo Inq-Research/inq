@@ -9,8 +9,8 @@ agents work.
 ## Grab a thought
 
 ```bash
-# An article from arxiv.org
-inq add arxiv:2302.10778
+# Copy an article from arxiv.org into a local module
+inq new papers/attention --from arxiv:2302.10778
 
 # Peek at a module without installing it
 inq describe github:inq-research/inq::overview
@@ -19,8 +19,8 @@ inq describe github:inq-research/inq::overview
 inq add github:inq-research/inq::overview
 ```
 
-These commands copy files into your workstation. Think of it like "installing
-knowledge."
+The import creates ordinary local content; the GitHub command installs a
+managed dependency. Both keep the knowledge available as ordinary files.
 
 AI agents are much happier & speedier when reading files on your own computer,
 rather than making round-trip errands searching the internet.
@@ -116,7 +116,7 @@ No Linux ARM64 build yet.
 
 ### Git
 
-Only `github:` sources need it; local and arXiv content does not. On macOS,
+Only `github:` sources need it; local modules and ArXiv imports do not. On macOS,
 `xcode-select --install` or `brew install git`.
 
 </details>
