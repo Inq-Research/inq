@@ -27,6 +27,10 @@ rather than making round-trip errands searching the internet.
 
 ## Install
 
+The [[install/inq|installation module]] walks through setup on each supported
+platform, checksum verification, custom locations, and future upgrades. The
+commands below are the quick reference.
+
 **macOS**
 
 ```bash

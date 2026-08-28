@@ -2,7 +2,13 @@
 format = 1
 
 [[local]]
+name = "install"
+
+[[local]]
 name = "overview"
+
+[local.links]
+install = "local:install"
 
 [[local]]
 name = "zen"
