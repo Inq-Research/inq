@@ -1,0 +1,11 @@
+[workspace]
+name = "test-beta"
+description = "overview.md"
+members = ["modules/*"]
+flavor = "markdown-strict"
+
+[dependencies]
+
+[dependencies.alpha-source]
+source = "github:inq-research/inq/test-workspaces/test-alpha::alpha-intro@commit:73ae7986ce2c9ebda59d47eae2cd28b6d0c463c4"
+integrity = "sha256:c06b9f727daa904f2d370d43a1e5b6ca15db29dc98dfa468d134e2aebbc7fbba"

@@ -1,0 +1,4 @@
+id = "github:inq-research/inq/test-workspaces/test-alpha::alpha-leaf@commit:73ae7986ce2c9ebda59d47eae2cd28b6d0c463c4"
+integrity = "sha256:7e5907bbe952fb0ce7ae212462bde0b24d58c56d331be1d992d59eef57df6d39"
+link_flavor = "markdown-strict"
+rewriter = 3
