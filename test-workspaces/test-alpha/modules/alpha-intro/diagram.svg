@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="460" height="80" viewBox="0 0 460 80" role="img" aria-labelledby="title description">
+  <title id="title">Alpha module chain</title>
+  <desc id="description">Introduction links to reference, which links to leaf.</desc>
+  <rect width="460" height="80" fill="#f4f6f8"/>
+  <g fill="#182534" font-family="sans-serif" font-size="16" text-anchor="middle">
+    <text x="80" y="45">Introduction</text>
+    <text x="230" y="45">Reference</text>
+    <text x="380" y="45">Leaf</text>
+  </g>
+  <g fill="none" stroke="#456789" stroke-width="2">
+    <path d="M140 40h30m-6-5 6 5-6 5"/>
+    <path d="M290 40h30m-6-5 6 5-6 5"/>
+  </g>
+</svg>

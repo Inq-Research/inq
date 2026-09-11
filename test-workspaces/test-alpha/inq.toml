@@ -1,0 +1,5 @@
+[workspace]
+name = "test-alpha"
+description = "overview.md"
+members = ["modules/*"]
+flavor = "markdown-strict"
